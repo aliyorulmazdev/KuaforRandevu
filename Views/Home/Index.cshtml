@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@section Styles {
+    <link href="~/lib/full-calendar/core/main.css" rel="stylesheet" />
+    <link href="~/lib/full-calendar/daygrid/main.css" rel="stylesheet" />
+    <link href="~/lib/full-calendar/timegrid/main.css" rel="stylesheet" />
+    <link href="~/lib/full-calendar/bootstrap/main.css" />
+}
+<div id="calendar">
+
+</div>
+
+@section Scripts {
+    <script src="~/lib/full-calendar/core/main.js"></script>
+    <script src="~/lib/full-calendar/daygrid/main.js"></script>
+    <script src="~/lib/full-calendar/timegrid/main.js"></script>
+    @*<script src="~/lib/full-calendar/bootstrap/main.js"></script>*@
+    <script src="~/lib/full-calendar/core/locales/tr.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['dayGrid', 'timeGrid'],
+                locale: 'tr',
+                header: {
+                    left: 'prev, next, today, getDate',
+                    center:'title',
+                    right: 'dayGridMonth, timeGridWeek, timeGridDay, timeGridForFourDay'
+                },
+                defaultView: 'dayGridMonth',
+                allDaySlot: false,
+                firstDay: 1, // pazardan başlayacak şekilde 0,1,2...
+                titleFormat: {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                },
+                columnHeaderFormat: {
+                    weekday : 'short',
+                    //day: 'numeric'
+                },
+                customButtons: {
+                    getDate: {
+                        text: 'Günlerden ne?',
+                        click: function() {
+                            var date = new Date();
+                            alert(date);
+                        }
+                    }
+                },
+                buttonText: {
+                    today: 'Bugün',
+                    month: 'Aylık Görünüm',
+                    week: 'Haftalık Görünüm',
+                    day: 'Günlük Görünüm',
+                },
+                footer: {
+                    left: 'prevYear',
+                    right: 'nextYear'
+                },
+                slotDuration: '00:30:00',
+                slotLabelInterval: '00:30:00',
+                slotLabelFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                },
+                handleWindowResize: true,
+                windowResizeDelay: 100,
+                windowResize: function(view) {
+                    alert('Takvim yeniden boyutlandırıldı.');
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+}
